@@ -24,6 +24,10 @@ pub enum MediaProcessorError {
 	PdfConfiguration,
 	#[error("A PDFium error occurred: {0}")]
 	Pdfium(#[from] pdfium_render::prelude::PdfiumError),
+	#[error("A hayro error occurred: {0}")]
+	// NOTE: hayro 0.9's `LoadPdfError` does not implement `Display`/`Error` yet, so it is
+	// formatted with `Debug` and stored as a string. Switch to `#[from]` once it does.
+	Hayro(String),
 	#[error("Failed to render PDF page")]
 	PdfRenderFailed,
 	#[error("The page requested was not found in the media file")]

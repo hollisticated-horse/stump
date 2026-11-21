@@ -314,9 +314,25 @@ Whether or not OPDS page access should automatically track reading progression. 
 
 ## PDF Rendering
 
+### STUMP_PDF_BACKEND
+
+The PDF engine used to render pages. The supported values are:
+
+- `pdfium` (default): uses the PDFium library. This is the mature backend, but it requires the
+  PDFium binary described in [STUMP_PDFIUM_PATH](#stump_pdfium_path).
+- `hayro`: uses [hayro](https://github.com/LaurenzV/hayro), a renderer written in Rust. It does not
+  need any extra binary to be installed. This backend is experimental and is still being
+  validated, so use it only if you want to help test the migration.
+
+Switching backends invalidates the rendered page cache automatically.
+
+| Type   | Default Value | TOML Key      |
+| ------ | ------------- | ------------- |
+| String | `pdfium`      | `pdf_backend` |
+
 ### STUMP_PDFIUM_PATH
 
-The path to the PDFium binary. This is only required if you want PDF support and you're running Stump outside of Docker, since the PDFium binary is included in the Docker image. You'll want to find and download the PDFium binary for your platform from [here](https://github.com/bblanchon/pdfium-binaries/releases), and then set this environment variable to the path of the binary.
+The path to the PDFium binary. This is only required if you want PDF support and you're running Stump outside of Docker, since the PDFium binary is included in the Docker image. It is not needed when [`pdf_backend`](#stump_pdf_backend) is set to `hayro`. You'll want to find and download the PDFium binary for your platform from [here](https://github.com/bblanchon/pdfium-binaries/releases), and then set this environment variable to the path of the binary.
 
 | Type   | Default Value                 | TOML Key      |
 | ------ | ----------------------------- | ------------- |
