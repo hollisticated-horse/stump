@@ -86,6 +86,14 @@ pub struct StumpConfig {
 	/// Path to the PDFium binary for enabling PDF support
 	pub pdfium_path: Option<String>,
 
+	/// The PDF rendering backend to use. Valid values are `pdfium` and `hayro`.
+	///
+	/// `hayro` is a pure-Rust renderer, so it does not require `libpdfium` to be
+	/// installed, but it is still experimental. This will default to `hayro` once
+	/// the migration is complete.
+	#[setting(default = "pdfium")]
+	pub pdf_backend: String,
+
 	/// Indicates if the GraphQL playground should be enabled. If true, the server
 	/// will allow GET requests to the GraphQL endpoint and serve the playground UI
 	#[setting(default = false)]
